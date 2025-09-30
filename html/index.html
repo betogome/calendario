@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendario anual de Costa Rica 2025</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <meta name="description" content="Calendario anual 2025 de Costa Rica con feriados resaltados, modo oscuro y vista responsiva." />
+</head>
+<body>
+  <header class="hero">
+  <!-- Imagen izquierda -->
+  <img src="/css/imagenes/oso.png" alt="Oso" class="hero-img hero-img-left">
+
+  <!-- Contenido central -->
+  <div class="hero__overlay">
+    <h1>Calendario anual de Costa Rica 2025</h1>
+    <p class="hero__subtitle">Feriados nacionales resaltados</p>
+    <div class="hero__actions">
+      <button id="toggleTheme" class="btn" aria-pressed="false" aria-label="Cambiar entre modo claro y oscuro">
+        Modo oscuro
+      </button>
+    </div>
+  </div>
+
+  <!-- Imagen derecha -->
+  <img src="/css/imagenes/tucan.png" alt="Tucán" class="hero-img hero-img-right">
+</header>
+
+
+  <main id="main" class="container">
+    <section aria-labelledby="legend-title" id="legend" class="legend">
+      <h2 id="legend-title" class="sr-only">Leyenda del calendario</h2>
+      <!-- Eliminado: Fin de semana -->
+      <p><i class="dot dot--holiday" aria-hidden="true"></i><span>Feriado</span></p>
+      <p><i class="dot dot--today" aria-hidden="true"></i><span>Hoy</span></p>
+    </section>
+
+    <section id="calendar" class="calendar" aria-label="Calendario anual 2025">
+      <!-- Contenido generado por app.js -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Calendario feriados nacionales de Costa Rica (año 2025).</small>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>

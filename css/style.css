@@ -1,0 +1,309 @@
+/* ========= Variables del tema ========= */
+:root{
+  --bg: #0b1220;
+  --bg-soft:#101827;
+  --text:#e6eaf2;
+  --muted:#9aa3b2;
+  --card:#121a2b;
+  --border:#22304a;
+  --accent:#e63946;     /* feriados */
+  --today:#2a9d8f;      /* hoy */
+  --focus:#93c5fd;      /* anillo de foco accesible */
+}
+
+/* Modo claro por defecto si el body no tiene .dark */
+body:not(.dark){
+  --bg:#f6f7fb;
+  --bg-soft:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --card:#ffffff;
+  --border:#e2e8f0;
+  --accent:#d62828;
+  --today:#0ea5e9;
+  --focus:#2563eb;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+/* ====== BODY con imagen de playa ====== */
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+  color:var(--text);
+  line-height:1.45;
+
+  background: url("imagenes/playa.jpg") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Overlay para mejorar legibilidad */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background: rgba(0,0,0,0.45);
+  z-index:-1;
+}
+
+/* ========= Accesibilidad ========= */
+.sr-only{
+  position:absolute !important;
+  width:1px;height:1px;
+  margin:-1px;padding:0;border:0;
+  clip:rect(0 0 0 0);overflow:hidden;
+}
+
+/* ========= Hero con gradiente rojo-blanco-azul (50% transparencia) ========= */
+.hero{
+  min-height: 42vh;
+  background: linear-gradient(
+    to right,
+    rgba(214, 40, 40, 0.5) 0%,   /* rojo 50% */
+    rgba(255, 255, 255, 0.5) 33%,/* blanco 50% */
+    rgba(0, 63, 136, 0.5) 66%    /* azul 50% */
+  );
+  position: relative;
+}
+
+/* Overlay del hero */
+.hero__overlay{
+  width:100%;height:100%;
+  padding: clamp(16px, 3vw, 32px);
+  background: rgba(0,0,0,0.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  text-align:center;color:#fff;
+}
+.hero__subtitle{margin:0;color:#e5e7eb}
+.hero__actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{
+  border:1px solid var(--border);
+  background:var(--bg-soft);
+  color:var(--text);
+  padding:.6rem 1rem;
+  border-radius:12px;
+  cursor:pointer;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+
+/* ========= Layout ========= */
+.container{max-width:1200px;margin:24px auto;padding:0 16px}
+
+/* 🎨 Contenedor principal con azul al 50% */
+#main.container {
+  background-color: rgba(0, 63, 136, 0.5);
+  padding: 24px 16px;
+  border-radius: 12px;
+}
+
+/* ========= Leyenda (mejorada con panel translúcido) ========= */
+.legend{
+  display:flex;gap:18px;flex-wrap:wrap;align-items:center;
+  font-size:.95rem;margin:16px 0 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+body:not(.dark) .legend{
+  background: rgba(255,255,255,.85);
+  color: #0f172a;
+  border: 1px solid rgba(0,0,0,.08);
+}
+body.dark .legend{
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.18);
+}
+.legend p{display:flex;gap:8px;align-items:center;margin:0}
+.dot{display:inline-block;width:1rem;height:1rem;border-radius:50%;border:1px solid var(--border)}
+.dot--holiday{background:var(--accent)}
+.dot--today{background:var(--today)}
+
+/* ========= Calendario ========= */
+.calendar{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px;
+}
+
+/* 📅 Tarjetas de cada mes */
+.month{
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+body.dark .month{
+  background: rgba(18, 26, 43, 0.5);
+}
+
+.month__header{
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  font-weight:600;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.04));
+}
+.month__grid{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding:12px;
+  gap:8px;
+}
+.month__dow, .day{
+  text-align:center;
+  padding:.45rem 0;
+}
+.month__dow{
+  color:var(--muted);
+  font-size:.85rem;
+}
+
+/* Celdas de día */
+.day{
+  border:1px solid var(--border);
+  border-radius:10px;
+  min-height:52px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  background: var(--bg-soft);
+  outline: none;
+}
+.day time{font: inherit;color:inherit}
+.day:focus-visible{ box-shadow: 0 0 0 3px var(--focus); }
+.day--blank{ background:transparent;border-color:transparent; }
+.day--holiday{
+  background:var(--accent);
+  color:#fff;font-weight:600;border-color: transparent;
+}
+/* 🔵 Hoy mejorado */
+.day--today time{
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8),
+               0 0 6px rgba(0,0,0,0.6);
+  border-radius: 50%;
+  padding: 4px 8px;
+  background: rgba(14,165,233,0.75);
+}
+
+/* Tooltip accesible */
+.day[data-tooltip]::after{
+  content: attr(data-tooltip);
+  position:absolute;
+  bottom: calc(100% + 8px);
+  left:50%;transform:translateX(-50%);
+  background:#111827;color:#e5e7eb;
+  padding:.35rem .55rem;font-size:.8rem;border-radius:8px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .12s ease, transform .12s ease;
+  border:1px solid #374151;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.day[data-tooltip]:hover::after,
+.day[data-tooltip]:focus-visible::after{
+  opacity:1;transform:translateX(-50%) translateY(-2px);
+}
+
+/* ========= Footer (mejorado) ========= */
+.footer{
+  margin: 24px auto 48px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  max-width: 1200px;
+  width: calc(100% - 32px);
+  text-align: center;
+  line-height: 1.5;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+body:not(.dark) .footer{
+  background: rgba(255,255,255,.9);
+  color: #0f172a;
+  border: 1px solid rgba(0,0,0,.08);
+}
+body.dark .footer{
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.18);
+}
+.footer a{
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+.footer a:hover{ opacity:.9 }
+
+/* ========= Impresión ========= */
+@media print{
+  .hero, .hero__actions, #legend, .footer{ display:none !important; }
+  body{ background:#fff;color:#000 }
+  .month{ break-inside: avoid; border:1px solid #ddd }
+  .month__header{ background:#f5f5f5 }
+}
+
+/* ========= Responsivo fino ========= */
+@media (max-width: 480px){
+  .hero__subtitle{font-size:.95rem}
+  .btn{padding:.55rem .85rem}
+}
+/* ===== Imágenes laterales del header ===== */
+/* ===== Imágenes laterales del header con animación fade in ===== */
+.hero{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.9);
+  }
+  to {
+    opacity: 0.5; /* mantiene 50% transparencia */
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+.hero-img{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-height: 250px;
+  width: auto;
+  height: auto;
+  opacity: 0;                     /* inicia invisible */
+  pointer-events: none;
+  z-index: 1;
+
+  animation: fadeIn 2s ease forwards;
+}
+
+.hero-img-left{
+  left: 20px;             /* margen izquierdo */
+  animation-delay: 0.3s;  /* aparece primero */
+}
+.hero-img-right{
+  right: 20px;            /* margen derecho */
+  animation-delay: 0.8s;  /* aparece después */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px){
+  .hero-img{ max-height: 120px; opacity: 0.45; }
+}
+@media (max-width: 480px){
+  .hero-img{ display: none; }
+}
+
+
